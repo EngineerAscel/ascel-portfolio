@@ -189,6 +189,7 @@ function App() {
               className="mt-6 space-y-4"
               action="https://formsubmit.co/ascelrayg@gmail.com"
               method="POST"
+              target="_blank"
             >
               <input type="hidden" name="_subject" value="New consulting inquiry" readOnly />
               <input type="hidden" name="_captcha" value="true" readOnly />
