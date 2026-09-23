@@ -28,21 +28,29 @@ const mobileNavLinks = [
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState('');
 
-  const handleInquirySubmit = (event) => {
+  const handleInquirySubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const fields = [
-      ['Name', formData.get('name')],
-      ['Email', formData.get('email')],
-      ['Company / Organization', formData.get('company')],
-      ['What can I help with?', formData.get('help')],
-      ['Budget Range', formData.get('budget')],
-      ['Ideal Timeline', formData.get('timeline')],
-      ['Project Details', formData.get('details')],
-    ];
-    const body = fields.map(([label, value]) => `${label}: ${value || 'Not provided'}`).join('\n\n');
-    window.location.href = `mailto:ascelrayg@gmail.com?subject=${encodeURIComponent('Consulting inquiry')}&body=${encodeURIComponent(body)}`;
+    setSubmitStatus('sending');
+
+    try {
+      const formData = new FormData(event.currentTarget);
+      const response = await fetch('https://formsubmit.co/ajax/ascelrayg@gmail.com', {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Inquiry submission failed');
+      }
+
+      event.currentTarget.reset();
+      setSubmitStatus('success');
+    } catch {
+      setSubmitStatus('error');
+    }
   };
 
   return (
@@ -193,6 +201,8 @@ function App() {
             </div>
 
             <form className="mt-6 space-y-4" onSubmit={handleInquirySubmit}>
+              <input type="hidden" name="_subject" value="New consulting inquiry" readOnly />
+              <input type="hidden" name="_captcha" value="false" readOnly />
               <div className="grid gap-4 md:grid-cols-2">
                 <label className="block text-[10px] font-medium uppercase tracking-[0.16em] text-zinc-500">
                   <span className="mb-1.5 flex items-center gap-1">
@@ -297,12 +307,21 @@ function App() {
 
                   <button
                     type="submit"
+                    disabled={submitStatus === 'sending'}
                     className="inline-flex items-center justify-center rounded-full bg-zinc-950 px-4 py-2.5 text-xs font-medium text-white transition hover:bg-zinc-800"
                   >
-                    Send inquiry <span className="ml-2 text-lg">→</span>
+                    {submitStatus === 'sending' ? 'Sending...' : 'Send inquiry'}
+                    {submitStatus !== 'sending' && <span className="ml-2 text-lg">→</span>}
                   </button>
                 </div>
               </div>
+
+              {submitStatus === 'success' && (
+                <p className="text-xs text-emerald-600">Thanks, your inquiry was sent successfully.</p>
+              )}
+              {submitStatus === 'error' && (
+                <p className="text-xs text-red-600">Something went wrong. Please email me directly instead.</p>
+              )}
             </form>
           </section>
           <Footer />
