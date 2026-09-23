@@ -62,16 +62,29 @@ function App() {
       </aside>
 
       <main className="flex-1 w-full md:ml-64 lg:ml-72 relative z-10">
-        <div className="md:hidden sticky top-0 z-40 border-b border-zinc-200 bg-white/90 backdrop-blur-sm">
+        <div
+          className={`md:hidden sticky top-0 z-40 border-b backdrop-blur-sm ${
+            isDark ? 'border-zinc-800 bg-[#0b0f14]/90' : 'border-zinc-200 bg-white/90'
+          }`}
+        >
           <div className="flex items-center justify-between px-4 py-3">
-            <a href="#top" className="font-mono text-lg font-bold tracking-tight text-zinc-900">
+            <a
+              href="#top"
+              className={`font-mono text-lg font-bold tracking-tight ${
+                isDark ? 'text-zinc-100' : 'text-zinc-900'
+              }`}
+            >
               Ascel Ray.
             </a>
             <button
               type="button"
               aria-label="Toggle navigation"
               onClick={() => setMenuOpen((prev) => !prev)}
-              className="relative z-50 flex h-9 w-9 items-center justify-center rounded-full border border-zinc-200 text-zinc-700 transition hover:text-zinc-900"
+              className={`relative z-50 flex h-9 w-9 items-center justify-center rounded-full border transition ${
+                isDark
+                  ? 'border-zinc-700 bg-zinc-800 text-zinc-200 hover:text-zinc-50'
+                  : 'border-zinc-200 bg-white text-zinc-700 hover:text-zinc-900'
+              }`}
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4">
                 <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
@@ -80,16 +93,22 @@ function App() {
           </div>
 
           {menuOpen && (
-            <div className="border-t border-zinc-200 bg-white px-4 py-4 shadow-sm">
-              <nav className="flex flex-col gap-3 font-mono text-sm text-zinc-600">
+            <div
+              className={`border-t px-4 py-4 shadow-sm ${
+                isDark ? 'border-zinc-800 bg-[#0b0f14]' : 'border-zinc-200 bg-white'
+              }`}
+            >
+              <nav className={`flex flex-col gap-3 font-mono text-sm ${isDark ? 'text-zinc-300' : 'text-zinc-600'}`}>
                 {mobileNavLinks.map((link) => (
                   <a
                     key={link.href}
                     href={link.href}
                     onClick={() => setMenuOpen(false)}
-                    className="flex items-center gap-2.5 transition hover:text-zinc-900"
+                    className={`flex items-center gap-2.5 transition ${
+                      isDark ? 'text-zinc-300 hover:text-zinc-100' : 'text-zinc-600 hover:text-zinc-900'
+                    }`}
                   >
-                    <span className="text-zinc-400">{iconMap[link.icon]}</span>
+                    <span className={isDark ? 'text-zinc-400' : 'text-zinc-400'}>{iconMap[link.icon]}</span>
                     <span>{link.label}</span>
                   </a>
                 ))}
