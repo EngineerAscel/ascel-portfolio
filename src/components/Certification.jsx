@@ -100,7 +100,7 @@ export default function Certification() {
             type="button"
             aria-label="Scroll certificates left"
             onClick={() => scrollCards('left')}
-            className="absolute left-0 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white/90 text-lg text-zinc-600 shadow-sm transition hover:text-zinc-900"
+            className="absolute left-0 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white/90 text-lg text-zinc-600 shadow-sm transition-all duration-200 ease-out hover:scale-110 hover:shadow-md hover:text-zinc-900"
           >
             ‹
           </button>
@@ -143,7 +143,7 @@ export default function Certification() {
             type="button"
             aria-label="Scroll certificates right"
             onClick={() => scrollCards('right')}
-            className="absolute right-0 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white/90 text-lg text-zinc-600 shadow-sm transition hover:text-zinc-900"
+            className="absolute right-0 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-zinc-200 bg-white/90 text-lg text-zinc-600 shadow-sm transition-all duration-200 ease-out hover:scale-110 hover:shadow-md hover:text-zinc-900"
           >
             ›
           </button>
