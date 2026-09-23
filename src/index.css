@@ -3,7 +3,7 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth; 
+    scroll-behavior: smooth;
     scroll-padding-top: 6rem;
     --font-sans: 'Inter', system-ui, sans-serif;
     --font-mono: 'Space Mono', monospace;
@@ -17,4 +17,53 @@
   section[id] {
     scroll-margin-top: 6rem;
   }
+}
+
+[data-theme='dark'] {
+  --page-bg: #0b0f14;
+  --panel: #111827;
+  --panel-soft: #1b1d22;
+}
+
+[data-theme='dark'] body,
+[data-theme='dark'] html {
+  background-color: var(--page-bg);
+  color: #f4f4f5;
+}
+
+[data-theme='dark'] .bg-white,
+[data-theme='dark'] .bg-zinc-50,
+[data-theme='dark'] .bg-zinc-100,
+[data-theme='dark'] .bg-zinc-200 {
+  background-color: var(--panel) !important;
+}
+
+[data-theme='dark'] .bg-[#f3f3f1] {
+  background-color: #111827 !important;
+}
+
+[data-theme='dark'] .text-zinc-900 {
+  color: #f4f4f5 !important;
+}
+
+[data-theme='dark'] .text-zinc-700,
+[data-theme='dark'] .text-zinc-600,
+[data-theme='dark'] .text-zinc-500,
+[data-theme='dark'] .text-zinc-400 {
+  color: #d4d4d8 !important;
+}
+
+[data-theme='dark'] .border-zinc-200,
+[data-theme='dark'] .border-zinc-100 {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+[data-theme='dark'] .shadow-sm,
+[data-theme='dark'] .shadow-md,
+[data-theme='dark'] .shadow-2xl {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35) !important;
+}
+
+[data-theme='dark'] .selection\:bg-zinc-200::selection {
+  background: rgba(255, 255, 255, 0.2);
 }

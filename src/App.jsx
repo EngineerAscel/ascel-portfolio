@@ -26,12 +26,38 @@ const mobileNavLinks = [
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isDark, setIsDark] = useState(false);
 
   return (
-    <div id="top" className="flex min-h-screen bg-white text-zinc-900 font-sans selection:bg-zinc-200">
-      <div className="fixed inset-0 z-0 pointer-events-none bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px] opacity-60"></div>
+    <div
+      id="top"
+      data-theme={isDark ? 'dark' : 'light'}
+      className={`relative flex min-h-screen font-sans transition-colors duration-300 ${
+        isDark ? 'bg-[#0b0f14] text-zinc-100' : 'bg-white text-zinc-900'
+      } selection:bg-zinc-200`}
+    >
+      <div
+        className={`fixed inset-0 z-0 pointer-events-none ${
+          isDark
+            ? 'bg-[radial-gradient(#2a2f38_1px,transparent_1px)] [background-size:20px_20px] opacity-80'
+            : 'bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:20px_20px] opacity-60'
+        }`}
+      ></div>
 
-      <aside className="hidden md:flex flex-col w-64 lg:w-72 h-screen fixed left-0 top-0 border-r border-zinc-100 z-10 bg-white/90 backdrop-blur-sm p-8">
+      <button
+        type="button"
+        aria-label="Toggle light and dark mode"
+        onClick={() => setIsDark((prev) => !prev)}
+        className={`fixed right-4 top-4 z-50 flex h-12 w-12 items-center justify-center rounded-full border text-lg shadow-sm transition-all duration-200 hover:scale-105 ${
+          isDark
+            ? 'border-zinc-700 bg-zinc-800 text-zinc-100 hover:bg-zinc-700'
+            : 'border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-50'
+        }`}
+      >
+        {isDark ? '☀' : '☾'}
+      </button>
+
+      <aside className={`hidden md:flex flex-col w-64 lg:w-72 h-screen fixed left-0 top-0 border-r z-10 backdrop-blur-sm p-8 ${isDark ? 'border-zinc-800 bg-[#111827]/90' : 'border-zinc-100 bg-white/90'}`}>
         <Sidebar />
       </aside>
 
