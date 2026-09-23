@@ -7,7 +7,7 @@ export default function Hero() {
         <img
           src={portrait}
           alt="Ascel Ray Glimer portrait"
-          className="h-full w-full object-cover"
+          className="dark-img h-full w-full object-cover"
         />
       </div>
       

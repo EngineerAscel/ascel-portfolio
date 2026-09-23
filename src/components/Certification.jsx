@@ -126,7 +126,7 @@ export default function Certification() {
                   <img
                     src={cert.image}
                     alt={cert.title}
-                    className="h-24 w-full object-cover"
+                    className="dark-img h-24 w-full object-cover transition-all duration-300"
                     loading="lazy"
                   />
                 </div>

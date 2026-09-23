@@ -48,7 +48,7 @@ function App() {
         type="button"
         aria-label="Toggle light and dark mode"
         onClick={() => setIsDark((prev) => !prev)}
-        className={`fixed right-4 top-4 z-50 flex h-12 w-12 items-center justify-center rounded-full border text-lg shadow-sm transition-all duration-200 hover:scale-105 ${
+        className={`fixed right-4 top-[calc(4.5rem+env(safe-area-inset-top))] z-30 flex h-10 w-10 items-center justify-center rounded-full border text-base shadow-sm transition-all duration-200 hover:scale-105 md:top-[calc(1rem+env(safe-area-inset-top))] md:h-12 md:w-12 md:text-lg ${
           isDark
             ? 'border-zinc-700 bg-zinc-800 text-zinc-100 hover:bg-zinc-700'
             : 'border-zinc-200 bg-white text-zinc-700 hover:bg-zinc-50'
@@ -62,7 +62,7 @@ function App() {
       </aside>
 
       <main className="flex-1 w-full md:ml-64 lg:ml-72 relative z-10">
-        <div className="md:hidden sticky top-0 z-20 border-b border-zinc-200 bg-white/90 backdrop-blur-sm">
+        <div className="md:hidden sticky top-0 z-40 border-b border-zinc-200 bg-white/90 backdrop-blur-sm">
           <div className="flex items-center justify-between px-4 py-3">
             <a href="#top" className="font-mono text-lg font-bold tracking-tight text-zinc-900">
               Ascel Ray.
@@ -71,7 +71,7 @@ function App() {
               type="button"
               aria-label="Toggle navigation"
               onClick={() => setMenuOpen((prev) => !prev)}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-200 text-zinc-700 transition hover:text-zinc-900"
+              className="relative z-50 flex h-9 w-9 items-center justify-center rounded-full border border-zinc-200 text-zinc-700 transition hover:text-zinc-900"
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4">
                 <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
