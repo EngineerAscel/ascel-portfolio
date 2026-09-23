@@ -3,6 +3,7 @@ const navLinks = [
   { label: 'Experience', href: '#experience', icon: 'timeline' },
   { label: 'Certification', href: '#certification', icon: 'badge' },
   { label: 'Stack', href: '#stack', icon: 'layers' },
+  { label: 'Consulting', href: '#consulting', icon: 'consulting' },
 ];
 
 const sidebarStats = [
@@ -39,6 +40,12 @@ export const iconMap = {
       <path d="m12 4 8 4-8 4-8-4 8-4Z" strokeLinejoin="round" />
       <path d="m4 12 8 4 8-4" strokeLinejoin="round" />
       <path d="m4 16 8 4 8-4" strokeLinejoin="round" />
+    </svg>
+  ),
+  consulting: (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" className="h-3.5 w-3.5">
+      <path d="M5 18.5V7.5A2.5 2.5 0 0 1 7.5 5h9A2.5 2.5 0 0 1 19 7.5v7A2.5 2.5 0 0 1 16.5 17H10l-5 3v-1.5Z" strokeLinejoin="round" />
+      <path d="M8.5 10h7M8.5 13h5" strokeLinecap="round" />
     </svg>
   ),
 };

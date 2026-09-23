@@ -42,6 +42,16 @@
   background-color: #111827 !important;
 }
 
+[data-theme='dark'] .consulting-field {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  color: #f4f4f5 !important;
+}
+
+[data-theme='dark'] .consulting-field::placeholder {
+  color: rgba(244, 244, 245, 0.5) !important;
+}
+
 [data-theme='dark'] img {
   filter: brightness(0.9) contrast(1.04) saturate(0.92);
 }

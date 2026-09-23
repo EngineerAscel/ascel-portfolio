@@ -22,11 +22,28 @@ const mobileNavLinks = [
   { label: 'Experience', href: '#experience', icon: 'timeline' },
   { label: 'Certification', href: '#certification', icon: 'badge' },
   { label: 'Stack', href: '#stack', icon: 'layers' },
+  { label: 'Consulting', href: '#consulting', icon: 'consulting' },
 ];
 
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
+
+  const handleInquirySubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    const fields = [
+      ['Name', formData.get('name')],
+      ['Email', formData.get('email')],
+      ['Company / Organization', formData.get('company')],
+      ['What can I help with?', formData.get('help')],
+      ['Budget Range', formData.get('budget')],
+      ['Ideal Timeline', formData.get('timeline')],
+      ['Project Details', formData.get('details')],
+    ];
+    const body = fields.map(([label, value]) => `${label}: ${value || 'Not provided'}`).join('\n\n');
+    window.location.href = `mailto:ascelrayg@gmail.com?subject=${encodeURIComponent('Consulting inquiry')}&body=${encodeURIComponent(body)}`;
+  };
 
   return (
     <div
@@ -145,6 +162,148 @@ function App() {
                 </div>
               ))}
             </div>
+          </section>
+
+          <section id="consulting" className="space-y-5">
+            <div className="flex items-center justify-between gap-4 border-b border-zinc-200 pb-3">
+              <div className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-500">
+                Consulting Inquiry
+              </div>
+              <a
+                href="mailto:ascelrayg@gmail.com?subject=Consulting%20inquiry"
+                aria-label="Email inquiry"
+                className="flex h-8 w-8 items-center justify-center rounded-md border border-zinc-300 bg-white text-zinc-700 transition hover:bg-zinc-50"
+              >
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="h-4 w-4">
+                  <path d="M4 7.5A2.5 2.5 0 0 1 6.5 5h11A2.5 2.5 0 0 1 20 7.5v9A2.5 2.5 0 0 1 17.5 19h-11A2.5 2.5 0 0 1 4 16.5v-9Z" strokeLinejoin="round" />
+                  <path d="m5 7 7 6 7-6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </a>
+            </div>
+
+            <div className="space-y-2">
+              <h3 className="text-3xl font-semibold tracking-tight text-zinc-900 md:text-4xl">
+                tell me about it
+              </h3>
+
+              <p className="max-w-[40rem] text-sm leading-relaxed text-zinc-600">
+                Share the essentials and I&apos;ll reply with next steps. The more context you include,
+                the more useful my first response can be.
+              </p>
+            </div>
+
+            <form className="mt-6 space-y-4" onSubmit={handleInquirySubmit}>
+              <div className="grid gap-4 md:grid-cols-2">
+                <label className="block text-[10px] font-medium uppercase tracking-[0.16em] text-zinc-500">
+                  <span className="mb-1.5 flex items-center gap-1">
+                    Name <span className="text-red-500">*</span>
+                  </span>
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    placeholder="Your name"
+                    className="consulting-field w-full rounded-md border border-zinc-300 bg-[#f3f3f1] px-3 py-2 text-sm text-zinc-800 placeholder:text-xs placeholder:text-zinc-400 focus:border-zinc-500 focus:outline-none"
+                  />
+                </label>
+
+                <label className="block text-[10px] font-medium uppercase tracking-[0.16em] text-zinc-500">
+                  <span className="mb-1.5 flex items-center gap-1">
+                    Email <span className="text-red-500">*</span>
+                  </span>
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    placeholder="you@company.com"
+                    className="consulting-field w-full rounded-md border border-zinc-300 bg-[#f3f3f1] px-3 py-2 text-sm text-zinc-800 placeholder:text-xs placeholder:text-zinc-400 focus:border-zinc-500 focus:outline-none"
+                  />
+                </label>
+
+                <label className="block text-[10px] font-medium uppercase tracking-[0.16em] text-zinc-500">
+                  <span className="mb-1.5">Company / Organization</span>
+                  <input
+                    type="text"
+                    name="company"
+                    placeholder="Optional"
+                    className="consulting-field w-full rounded-md border border-zinc-300 bg-[#f3f3f1] px-3 py-2 text-sm text-zinc-800 placeholder:text-xs placeholder:text-zinc-400 focus:border-zinc-500 focus:outline-none"
+                  />
+                </label>
+
+                <label className="block text-[10px] font-medium uppercase tracking-[0.16em] text-zinc-500">
+                  <span className="mb-1.5 flex items-center gap-1">
+                    What can I help with? <span className="text-red-500">*</span>
+                  </span>
+                  <input
+                    type="text"
+                    name="help"
+                    required
+                    placeholder="e.g. AI workshop, product build, fractional CTO"
+                    className="consulting-field w-full rounded-md border border-zinc-300 bg-[#f3f3f1] px-3 py-2 text-sm text-zinc-800 placeholder:text-xs placeholder:text-zinc-400 focus:border-zinc-500 focus:outline-none"
+                  />
+                </label>
+
+                <label className="block text-[10px] font-medium uppercase tracking-[0.16em] text-zinc-500">
+                  <span className="mb-1.5">Budget Range</span>
+                  <div className="relative">
+                    <select name="budget" className="consulting-field w-full appearance-none rounded-md border border-zinc-300 bg-[#f3f3f1] px-3 py-2 text-sm text-zinc-700 focus:border-zinc-500 focus:outline-none">
+                      <option className="text-zinc-700">Select one (optional)</option>
+                      <option>Under $5k</option>
+                      <option>$5k - $15k</option>
+                      <option>$15k - $30k</option>
+                      <option>$30k+</option>
+                    </select>
+                    <span className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-zinc-700">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9" className="h-4 w-4">
+                        <path d="m7 10 5 5 5-5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </span>
+                  </div>
+                </label>
+
+                <label className="block text-[10px] font-medium uppercase tracking-[0.16em] text-zinc-500">
+                  <span className="mb-1.5">Ideal Timeline</span>
+                  <input
+                    type="text"
+                    name="timeline"
+                    placeholder="e.g. October, next quarter, flexible"
+                    className="consulting-field w-full rounded-md border border-zinc-300 bg-[#f3f3f1] px-3 py-2 text-sm text-zinc-800 placeholder:text-xs placeholder:text-zinc-400 focus:border-zinc-500 focus:outline-none"
+                  />
+                </label>
+              </div>
+
+              <label className="block text-[10px] font-medium uppercase tracking-[0.16em] text-zinc-500">
+                <span className="mb-1.5 flex items-center gap-1">
+                  Project details <span className="text-red-500">*</span>
+                </span>
+                <textarea
+                  rows="4"
+                  name="details"
+                  required
+                  placeholder="What are you working on, who is it for, and what would a successful outcome look like?"
+                  className="consulting-field w-full resize-none rounded-md border border-zinc-300 bg-[#f3f3f1] px-3 py-2 text-sm text-zinc-800 placeholder:text-xs placeholder:text-zinc-400 focus:border-zinc-500 focus:outline-none"
+                />
+              </label>
+
+              <div className="flex flex-col gap-3 border-t border-zinc-200 pt-3 md:flex-row md:items-center md:justify-between">
+                <p className="text-xs text-zinc-500">
+                  Please don&apos;t include passwords, API keys, or other sensitive information.
+                </p>
+
+                <div className="flex flex-col gap-3 md:flex-row md:items-center md:gap-4">
+                  <p className="text-xs text-zinc-500">
+                    Prefer email? <a href="mailto:ascelrayg@gmail.com" className="text-zinc-800 underline">ascelrayg@gmail.com</a>
+                  </p>
+
+                  <button
+                    type="submit"
+                    className="inline-flex items-center justify-center rounded-full bg-zinc-950 px-4 py-2.5 text-xs font-medium text-white transition hover:bg-zinc-800"
+                  >
+                    Send inquiry <span className="ml-2 text-lg">→</span>
+                  </button>
+                </div>
+              </div>
+            </form>
           </section>
           <Footer />
         </div>
