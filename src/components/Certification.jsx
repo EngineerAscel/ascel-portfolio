@@ -152,7 +152,7 @@ export default function Certification() {
 
       {showAll && (
         <div className="fixed inset-0 z-50 flex items-center justify-center px-3 py-4">
-          <div className="relative w-full max-w-[1000px] rounded-[20px] border border-zinc-200 bg-[#f3f3f1] p-3 shadow-2xl md:p-4">
+          <div className="cert-gallery-panel relative w-full max-w-[1000px] rounded-[20px] border border-zinc-200 bg-[#f3f3f1] p-3 shadow-2xl md:p-4">
             <button
               type="button"
               onClick={() => setShowAll(false)}
@@ -175,7 +175,7 @@ export default function Certification() {
                     key={`${cert.title}-${cert.date}-grid`}
                     type="button"
                     onClick={() => handleCertSelect(cert)}
-                    className="group rounded-[16px] border border-zinc-200 bg-white p-2.5 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+                    className="cert-card-shell group rounded-[16px] border border-zinc-200 bg-white p-2.5 text-left shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
                   >
                     <div className="mb-3 overflow-hidden rounded-[12px] border border-zinc-200 bg-zinc-100">
                       <img src={cert.image} alt={cert.title} className="h-28 w-full object-cover" />
@@ -202,7 +202,7 @@ export default function Certification() {
 
       {selectedCert && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center px-3 py-4">
-          <div className="relative w-full max-w-[760px] rounded-[18px] border border-zinc-200 bg-white p-3 shadow-2xl">
+          <div className="cert-modal-panel relative w-full max-w-[760px] rounded-[18px] border border-zinc-200 bg-white p-3 shadow-2xl">
             <button
               type="button"
               onClick={() => setSelectedCert(null)}
@@ -215,7 +215,7 @@ export default function Certification() {
               <img
                 src={selectedCert.image}
                 alt={selectedCert.title}
-                className="h-full max-h-[50vh] w-full rounded-xl object-contain bg-zinc-100"
+                className="cert-modal-image h-full max-h-[50vh] w-full rounded-xl object-contain bg-zinc-100"
               />
 
               <div className="flex flex-col justify-center space-y-2">

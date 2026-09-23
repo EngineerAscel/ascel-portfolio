@@ -49,8 +49,18 @@
 [data-theme='dark'] .group img,
 [data-theme='dark'] .grid img,
 [data-theme='dark'] .fixed img,
-[data-theme='dark'] img {
+[data-theme='dark'] .cert-modal-image,
+[data-theme='dark'] .cert-card-shell img,
+[data-theme='dark'] .cert-gallery-panel img {
   filter: brightness(0.58) contrast(1.18) saturate(0.7) !important;
+}
+
+[data-theme='dark'] .cert-gallery-panel,
+[data-theme='dark'] .cert-modal-panel,
+[data-theme='dark'] .cert-card-shell,
+[data-theme='dark'] .group {
+  background-color: #0f172a !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
 }
 
 [data-theme='dark'] .text-zinc-900,
