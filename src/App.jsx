@@ -28,6 +28,29 @@ const mobileNavLinks = [
 function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState('');
+
+  const handleInquirySubmit = async (event) => {
+    event.preventDefault();
+    setSubmitStatus('sending');
+
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/ascelrayg@gmail.com', {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(event.currentTarget),
+      });
+
+      if (!response.ok) {
+        throw new Error('Inquiry submission failed');
+      }
+
+      event.currentTarget.reset();
+      setSubmitStatus('success');
+    } catch {
+      setSubmitStatus('error');
+    }
+  };
 
   return (
     <div
@@ -176,11 +199,7 @@ function App() {
               </p>
             </div>
 
-            <form
-              className="mt-6 space-y-4"
-              action="https://formsubmit.co/ascelrayg@gmail.com"
-              method="POST"
-            >
+            <form className="mt-6 space-y-4" onSubmit={handleInquirySubmit}>
               <input type="hidden" name="_subject" value="New consulting inquiry" readOnly />
               <input type="hidden" name="_captcha" value="true" readOnly />
               <input type="hidden" name="_template" value="table" readOnly />
@@ -288,12 +307,24 @@ function App() {
 
                   <button
                     type="submit"
+                    disabled={submitStatus === 'sending'}
                     className="inline-flex items-center justify-center rounded-full bg-zinc-950 px-4 py-2.5 text-xs font-medium text-white transition hover:bg-zinc-800"
                   >
-                    Send inquiry <span className="ml-2 text-lg">→</span>
+                    {submitStatus === 'sending' ? 'Sending...' : 'Send inquiry'}
+                    {submitStatus !== 'sending' && <span className="ml-2 text-lg">→</span>}
                   </button>
                 </div>
               </div>
+              {submitStatus === 'success' && (
+                <p className="text-xs text-emerald-600" role="status">
+                  Thanks, your inquiry was sent successfully.
+                </p>
+              )}
+              {submitStatus === 'error' && (
+                <p className="text-xs text-red-600" role="alert">
+                  Something went wrong. Please try again or email me directly.
+                </p>
+              )}
             </form>
           </section>
           <Footer />
