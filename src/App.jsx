@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Sidebar, { iconMap } from './components/Sidebar';
 import Hero from './components/Hero';
 import Stats from './components/Stats';
@@ -30,27 +30,13 @@ function App() {
   const [isDark, setIsDark] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('');
 
-  const handleInquirySubmit = async (event) => {
-    event.preventDefault();
-    setSubmitStatus('sending');
-
-    try {
-      const response = await fetch('https://formsubmit.co/ajax/ascelrayg@gmail.com', {
-        method: 'POST',
-        headers: { Accept: 'application/json' },
-        body: new FormData(event.currentTarget),
-      });
-
-      if (!response.ok) {
-        throw new Error('Inquiry submission failed');
-      }
-
-      event.currentTarget.reset();
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('inquiry') === 'success') {
       setSubmitStatus('success');
-    } catch {
-      setSubmitStatus('error');
+      window.history.replaceState({}, document.title, `${window.location.pathname}${window.location.hash}`);
     }
-  };
+  }, []);
 
   return (
     <div
@@ -199,10 +185,20 @@ function App() {
               </p>
             </div>
 
-            <form className="mt-6 space-y-4" onSubmit={handleInquirySubmit}>
+            <form
+              className="mt-6 space-y-4"
+              action="https://formsubmit.co/ascelrayg@gmail.com"
+              method="POST"
+            >
               <input type="hidden" name="_subject" value="New consulting inquiry" readOnly />
               <input type="hidden" name="_captcha" value="true" readOnly />
               <input type="hidden" name="_template" value="table" readOnly />
+              <input
+                type="hidden"
+                name="_next"
+                value={`${window.location.origin}/?inquiry=success#consulting`}
+                readOnly
+              />
               <div className="grid gap-4 md:grid-cols-2">
                 <label className="block text-[10px] font-medium uppercase tracking-[0.16em] text-zinc-500">
                   <span className="mb-1.5 flex items-center gap-1">
@@ -307,22 +303,15 @@ function App() {
 
                   <button
                     type="submit"
-                    disabled={submitStatus === 'sending'}
                     className="inline-flex items-center justify-center rounded-full bg-zinc-950 px-4 py-2.5 text-xs font-medium text-white transition hover:bg-zinc-800"
                   >
-                    {submitStatus === 'sending' ? 'Sending...' : 'Send inquiry'}
-                    {submitStatus !== 'sending' && <span className="ml-2 text-lg">→</span>}
+                    Send inquiry <span className="ml-2 text-lg">→</span>
                   </button>
                 </div>
               </div>
               {submitStatus === 'success' && (
                 <p className="text-xs text-emerald-600" role="status">
                   Thanks, your inquiry was sent successfully.
-                </p>
-              )}
-              {submitStatus === 'error' && (
-                <p className="text-xs text-red-600" role="alert">
-                  Something went wrong. Please try again or email me directly.
                 </p>
               )}
             </form>
