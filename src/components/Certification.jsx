@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import cert1 from '../assets/cert1.jpg';
 import cert2 from '../assets/cert2.jpg';
 import cert3 from '../assets/cert3.jpg';
@@ -63,6 +63,28 @@ export default function Certification() {
   const scrollRef = useRef(null);
   const [selectedCert, setSelectedCert] = useState(null);
   const [showAll, setShowAll] = useState(false);
+
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return undefined;
+
+    let animationFrame;
+
+    const moveCards = () => {
+      const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+
+      if (maxScrollLeft > 0) {
+        scrollContainer.scrollLeft =
+          scrollContainer.scrollLeft >= maxScrollLeft - 1 ? 0 : scrollContainer.scrollLeft + 0.5;
+      }
+
+      animationFrame = requestAnimationFrame(moveCards);
+    };
+
+    animationFrame = requestAnimationFrame(moveCards);
+
+    return () => cancelAnimationFrame(animationFrame);
+  }, []);
 
   const scrollCards = (direction) => {
     if (!scrollRef.current) return;
