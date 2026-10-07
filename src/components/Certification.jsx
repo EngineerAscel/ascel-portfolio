@@ -61,6 +61,7 @@ const certifications = [
 
 export default function Certification() {
   const scrollRef = useRef(null);
+  const autoScrollPauseUntil = useRef(0);
   const [selectedCert, setSelectedCert] = useState(null);
   const [showAll, setShowAll] = useState(false);
 
@@ -69,13 +70,23 @@ export default function Certification() {
     if (!scrollContainer) return undefined;
 
     let animationFrame;
+    let direction = 1;
 
     const moveCards = () => {
       const maxScrollLeft = scrollContainer.scrollWidth - scrollContainer.clientWidth;
 
-      if (maxScrollLeft > 0) {
-        scrollContainer.scrollLeft =
-          scrollContainer.scrollLeft >= maxScrollLeft - 1 ? 0 : scrollContainer.scrollLeft + 0.5;
+      if (maxScrollLeft > 0 && Date.now() >= autoScrollPauseUntil.current) {
+        const nextScrollLeft = scrollContainer.scrollLeft + direction;
+
+        if (nextScrollLeft >= maxScrollLeft) {
+          scrollContainer.scrollLeft = maxScrollLeft;
+          direction = -1;
+        } else if (nextScrollLeft <= 0) {
+          scrollContainer.scrollLeft = 0;
+          direction = 1;
+        } else {
+          scrollContainer.scrollLeft = nextScrollLeft;
+        }
       }
 
       animationFrame = requestAnimationFrame(moveCards);
@@ -88,6 +99,7 @@ export default function Certification() {
 
   const scrollCards = (direction) => {
     if (!scrollRef.current) return;
+    autoScrollPauseUntil.current = Date.now() + 700;
     const scrollAmount = 340;
     scrollRef.current.scrollBy({
       left: direction === 'left' ? -scrollAmount : scrollAmount,
@@ -129,7 +141,7 @@ export default function Certification() {
 
           <div
             ref={scrollRef}
-            className="flex gap-4 overflow-x-auto scroll-smooth pb-2 pl-10 pr-10 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+            className="flex gap-4 overflow-x-auto pb-2 pl-10 pr-10 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
           >
             {certifications.map((cert) => (
               <article
